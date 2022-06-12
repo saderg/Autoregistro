@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.autoregistros.entidades.Emotion;
@@ -37,8 +39,6 @@ public class Graphic extends AppCompatActivity {
 
     String emotion_date;
     int id_user;
-    int miedo,alegria,enfado,tristeza,asco;
-    int countEmotion;
     String user_name, password, email_address, date_of_birth;
     Date start_date, end_date;
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -67,7 +67,7 @@ public class Graphic extends AppCompatActivity {
         listButton = findViewById(R.id.buttonEmotions);
         mostrarGraphic = findViewById(R.id.buttonMostrarGraphic);
         dateGraphic = findViewById(R.id.editDateGraphic);
-        //init compoments graphic_day
+
         BarChart barChart = (BarChart) findViewById(R.id.barChart);
 
         //MENU BOTONES
@@ -113,6 +113,7 @@ public class Graphic extends AppCompatActivity {
         mostrarGraphic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int[] counterArray = new int[5];
                 try {
                     start_date = new java.sql.Date(format.parse(dateGraphic.getText().toString() + "T00:00:00").getTime());
                     end_date = new java.sql.Date(format.parse(dateGraphic.getText().toString() + "T23:59:59").getTime());
@@ -122,41 +123,15 @@ public class Graphic extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                getByTypeAndRange(id_user, "Miedo" , start_date, end_date);
-                getByTypeAndRange(id_user, "Alegria", start_date, end_date);
-                getByTypeAndRange(id_user, "Enfado", start_date, end_date);
-                getByTypeAndRange(id_user, "Tristeza", start_date, end_date);
-                getByTypeAndRange(id_user, "Asco", start_date, end_date);
-
-
-                ArrayList<BarEntry> emociones = new ArrayList<>();
-
-                emociones.add(new BarEntry(0, miedo));
-                emociones.add(new BarEntry(1, alegria));
-                emociones.add(new BarEntry(2, enfado));
-                emociones.add(new BarEntry(3, tristeza));
-                emociones.add(new BarEntry(4, asco));
-
-                BarDataSet barDataSet = new BarDataSet(emociones, "(Miedo, Alegría, Enfado, Tristeza, Asco");
-                barDataSet.setValueTextSize(100f);
-                barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                barDataSet.setValueTextColor(Color.BLACK);
-                barDataSet.setValueTextSize(18f);
-
-                BarData barData = new BarData(barDataSet);
-
-                barChart.setFitBars(true);
-                barChart.setData(barData);
-                barChart.getDescription().setText("");
-                barChart.animateY(2000);
-                barChart.animateX(1000);
+                getByRange(id_user, start_date, end_date, barChart);
 
             }
         });
 
 
     }
-    public void getByTypeAndRange(int id_usuario, String emotion_type, Date start_date, Date end_date){
+
+    public void getByRange(int id_usuario, Date start_date, Date end_date, BarChart barChart){
         Log.i("START DATE metodo ", start_date.toString());
 
         ArrayList<Emotion> arrayListEmociones = new ArrayList<>();
@@ -166,8 +141,7 @@ public class Graphic extends AppCompatActivity {
         loading.setCanceledOnTouchOutside(false);
         loading.show();
 
-        String url = "http://192.168.1.31:8086/app/emotions/emotion/type_and_range?user_id=" + id_usuario + "&emotion_type=" + emotion_type + "&start_date=" + start_date.toString() + "T00:00:00&end_date=" + end_date.toString() + "T23:59:59";
-        System.out.println(url);
+        String url = "http://192.168.56.1:8086/app/emotions/emotion/range?user_id=" + id_usuario + "&start_date=" + start_date.toString() + "T00:00:00&end_date=" + end_date.toString() + "T23:59:59";
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
@@ -175,7 +149,13 @@ public class Graphic extends AppCompatActivity {
                 (response -> {
                     Log.i("TAG", "TODO BIEN");
 
+
                     try {
+                        int miedo = 0;
+                        int alegria = 0;
+                        int enfado = 0;
+                        int tristeza = 0;
+                        int sorpresa = 0;
                         JSONArray arrayEmociones = new JSONArray(response);
 
                         for (int i = 0; i < arrayEmociones.length(); i++) {
@@ -191,22 +171,68 @@ public class Graphic extends AppCompatActivity {
                             emotion.setEmotion_date(format.parse(arrayEmociones.getJSONObject(i).getString("emotion_date")));
                             System.out.println(emotion.toString());
                             arrayListEmociones.add(emotion);
+                            Log.i("EMOCIONES TOTALES", arrayListEmociones.size() +"");
+
+                            switch (arrayListEmociones.get(i).getEmotion_type()) {
+                                case "Miedo":
+                                    miedo++;
+                                    break;
+                                case "Alegria":
+                                    alegria++;
+                                    break;
+                                case "Enfado":
+                                    enfado++;
+                                    break;
+                                case "Tristeza":
+                                    tristeza++;
+                                    break;
+                                case "Sorpresa":
+                                    sorpresa++;
+                                    break;
+                                default:
+                                    throw new IllegalStateException("Unexpected value: " + arrayListEmociones.get(i).getEmotion_type());
+                            }
+
+                            Log.i("EMOCIONES POR TIPO", "Miedo: " + miedo + " / Alegria " + alegria + " / enfado " + enfado + " / tristeza " + tristeza + "/ sorpresa " + sorpresa);
+
                         }
 
-                        arrayEmociones.length();
-                        System.out.println("METODO " + emotion_type + " " + countEmotion);
+
+                        ArrayList<BarEntry> emociones = new ArrayList<>();
+
+                        emociones.add(new BarEntry(0, miedo));
+                        emociones.add(new BarEntry(1, alegria));
+                        emociones.add(new BarEntry(2, enfado));
+                        emociones.add(new BarEntry(3, tristeza));
+                        emociones.add(new BarEntry(4, sorpresa));
+
+                        BarDataSet barDataSet = new BarDataSet(emociones, "(Miedo, Alegria, Enfado, Tristeza, Sorpresa");
+                        barDataSet.setValueTextSize(100f);
+                        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                        barDataSet.setValueTextColor(Color.BLACK);
+                        barDataSet.setValueTextSize(18f);
+
+                        BarData barData = new BarData(barDataSet);
+
+                        barChart.setFitBars(true);
+                        barChart.setData(barData);
+                        barChart.getDescription().setText("");
+                        barChart.animateY(2000);
+                        barChart.animateX(1000);
+
+
                     }catch (Exception ex){
                         ex.printStackTrace();
                     }
+
+
                 }),
                 (error ->{
                     Log.e("error", "Error al pedir los datos." + error.getMessage());
                     loading.dismiss();
-                    countEmotion = 0;
-
-                    System.out.println("METODO.LENGTH" + miedo);
                 }));
         Volley.newRequestQueue(this).add(peticionApi);
+
     }
 
 }

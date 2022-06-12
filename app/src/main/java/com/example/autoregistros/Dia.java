@@ -4,6 +4,7 @@ import static com.example.autoregistros.conectaAPI.Urls.URL_POST_EMOTION;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -55,13 +56,13 @@ public class Dia extends AppCompatActivity {
     public Toolbar toolbar;
 
     int id_user, day, month, year;
-    String user_name, password, email_address, date_of_birth;
-    String emotion_type, emotion_reason;
+    String user_name, password, email_address, date_of_birth, emotion_type, emotion_reason;
     Date emotion_date;
     Emotion emotionPost;
+    Context ctx = this;
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-    String[] emotion_types = new String[]{"Miedo", "Alegría", "Enfado", "Tristeza", "Asco"};
+    String[] emotion_types = new String[]{"Miedo", "Alegría", "Enfado", "Tristeza", "Sorpresa"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class Dia extends AppCompatActivity {
         Log.i("LOGIN USER EN PPAL.A", loginUser.toString());
 
         spinnerEmotions = findViewById(R.id.spinnerDayF);
-        dayTxt = findViewById(R.id.dayText);
+        dayTxt = findViewById(R.id.dateText);
         dateTxt = findViewById(R.id.dateText);
         reasonEditText = findViewById(R.id.reasonEditText);
 
@@ -145,8 +146,8 @@ public class Dia extends AppCompatActivity {
 
         Calendar calendario = Calendar.getInstance();
         day = calendario.get(Calendar.DAY_OF_MONTH);
-        Log.i("DDAY", String.valueOf(day));
-        dayTxt.setText("11");
+        Log.i("DAY", String.valueOf(day));
+        dayTxt.setText(String.valueOf(day));
 
         month = calendario.get(Calendar.MONTH);
         Log.i("MONTH", String.valueOf(month + 1));
