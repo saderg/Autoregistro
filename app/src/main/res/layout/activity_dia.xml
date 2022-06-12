@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:baselineAligned="false"
             android:orientation="vertical"
+            android:padding="10dp"
             android:textAlignment="center">
 
             <TextView
@@ -26,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
-                android:layout_marginRight="0dp"
+                android:layout_marginRight="10dp"
 
                 android:padding="0dp"
                 android:text="05/2022"
@@ -112,17 +113,21 @@
                     android:hint="Intenta describir la situación en la que te encuentras, tus pensamientos, tu conducta y los resultados de esta."
                     android:inputType="textMultiLine" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <Button
                     android:id="@+id/addEmotion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:layout_marginBottom="16dp"
-                    android:icon="@drawable/addemotion" />
+                    android:layout_marginLeft="300dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/circulo_boton"
+                    android:backgroundTint="@color/teal_200"
+                    android:paddingBottom="6dp"
+                    android:text="+" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp">
 
 
                     <ImageButton
@@ -149,6 +154,7 @@
                         android:layout_weight="1"
                         android:background="@color/teal_700"
                         app:srcCompat="@drawable/resources" />
+
                 </LinearLayout>
 
 

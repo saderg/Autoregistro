@@ -230,6 +230,29 @@ public class Graphic extends AppCompatActivity {
                 (error ->{
                     Log.e("error", "Error al pedir los datos." + error.getMessage());
                     loading.dismiss();
+
+                    ArrayList<BarEntry> emociones = new ArrayList<>();
+
+                    emociones.add(new BarEntry(0, 0));
+                    emociones.add(new BarEntry(1, 0));
+                    emociones.add(new BarEntry(2, 0));
+                    emociones.add(new BarEntry(3, 0));
+                    emociones.add(new BarEntry(4, 0));
+
+                    BarDataSet barDataSet = new BarDataSet(emociones, "(Miedo, Alegria, Enfado, Tristeza, Sorpresa");
+                    barDataSet.setValueTextSize(100f);
+                    barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                    barDataSet.setValueTextColor(Color.BLACK);
+                    barDataSet.setValueTextSize(18f);
+
+                    BarData barData = new BarData(barDataSet);
+
+                    barChart.setFitBars(true);
+                    barChart.setData(barData);
+                    barChart.getDescription().setText("");
+                    barChart.animateY(2000);
+                    barChart.animateX(1000);
+
                 }));
         Volley.newRequestQueue(this).add(peticionApi);
 

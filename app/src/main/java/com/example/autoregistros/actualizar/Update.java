@@ -212,6 +212,7 @@ public class Update extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteUser(id_user);
+                        Toast.makeText(Update.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Update.this, MainActivity.class);
                         startActivity(intent);
                     }

@@ -49,10 +49,10 @@ import java.util.Date;
 
 public class Dia extends AppCompatActivity {
     public TextView dayTxt, dateTxt;
-    public EditText reasonEditText, graphicEditText;
+    public EditText reasonEditText;
     public Spinner spinnerEmotions;
-    public ImageButton graphicButton, dayButton, listButton, resourcesButton;
-    public FloatingActionButton addEmotion;
+    public ImageButton graphicButton, listButton, resourcesButton;
+    public Button addEmotion;
     public Toolbar toolbar;
 
     int id_user, day, month, year;
@@ -254,7 +254,7 @@ public class Dia extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(Dia.this,"String Response : "+ response.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(Dia.this,"Emoción de " + emotion_type + " registrada",Toast.LENGTH_LONG).show();
                         try {
                             Log.d("JSON", String.valueOf(response));
                             loading.dismiss();
