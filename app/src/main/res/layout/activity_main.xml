@@ -7,6 +7,22 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="90dp"
+        android:paddingRight="90dp"
+        android:paddingBottom="20dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="259dp"
+            android:textAlignment="center"
+            app:srcCompat="@drawable/psyque_logo" />
+    </LinearLayout>
+
     <EditText
         android:id="@+id/cajaUsuario"
         android:layout_width="380dp"
