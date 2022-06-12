@@ -155,7 +155,7 @@ public class Graphic extends AppCompatActivity {
                         int alegria = 0;
                         int enfado = 0;
                         int tristeza = 0;
-                        int asco = 0;
+                        int sorpresa = 0;
                         JSONArray arrayEmociones = new JSONArray(response);
 
                         for (int i = 0; i < arrayEmociones.length(); i++) {
@@ -186,14 +186,14 @@ public class Graphic extends AppCompatActivity {
                                 case "Tristeza":
                                     tristeza++;
                                     break;
-                                case "Asco":
-                                    asco++;
+                                case "Sorpresa":
+                                    sorpresa++;
                                     break;
                                 default:
                                     throw new IllegalStateException("Unexpected value: " + arrayListEmociones.get(i).getEmotion_type());
                             }
 
-                            Log.i("EMOCIONES POR TIPO", "Miedo: " + miedo + " / Alegria " + alegria + " / enfado " + enfado + " / tristeza " + tristeza + "/ asco " + asco);
+                            Log.i("EMOCIONES POR TIPO", "Miedo: " + miedo + " / Alegria " + alegria + " / enfado " + enfado + " / tristeza " + tristeza + "/ sorpresa " + sorpresa);
 
                         }
 
@@ -204,9 +204,9 @@ public class Graphic extends AppCompatActivity {
                         emociones.add(new BarEntry(1, alegria));
                         emociones.add(new BarEntry(2, enfado));
                         emociones.add(new BarEntry(3, tristeza));
-                        emociones.add(new BarEntry(4, asco));
+                        emociones.add(new BarEntry(4, sorpresa));
 
-                        BarDataSet barDataSet = new BarDataSet(emociones, "(Miedo, Alegria, Enfado, Tristeza, Asco");
+                        BarDataSet barDataSet = new BarDataSet(emociones, "(Miedo, Alegria, Enfado, Tristeza, Sorpresa");
                         barDataSet.setValueTextSize(100f);
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
                         barDataSet.setValueTextColor(Color.BLACK);

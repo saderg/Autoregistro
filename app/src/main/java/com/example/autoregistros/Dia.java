@@ -62,7 +62,7 @@ public class Dia extends AppCompatActivity {
     Context ctx = this;
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-    String[] emotion_types = new String[]{"Miedo", "Alegría", "Enfado", "Tristeza", "Asco"};
+    String[] emotion_types = new String[]{"Miedo", "Alegría", "Enfado", "Tristeza", "Sorpresa"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
