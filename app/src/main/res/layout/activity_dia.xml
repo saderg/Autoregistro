@@ -9,7 +9,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <include layout="@layout/toolbar" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
                 android:layout_marginRight="0dp"
+
                 android:padding="0dp"
                 android:text="05/2022"
                 android:textAlignment="textEnd"
@@ -39,7 +43,7 @@
                 android:text="23"
                 android:textAlignment="center"
                 android:textColor="@color/teal_700"
-                android:textSize="220dp"
+                android:textSize="180dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -97,54 +101,50 @@
                     android:hint="Intenta describir la situación en la que te encuentras, tus pensamientos, tu conducta y los resultados de esta."
                     android:inputType="textMultiLine" />
 
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/addEmotion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginBottom="16dp"
+                    android:icon="@drawable/addemotion" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="50dp">
 
-                    <ImageButton
-                        android:id="@+id/buttonDia"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/sun" />
 
                     <ImageButton
                         android:id="@+id/buttonEmotions"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/calendar" />
+                        android:background="@color/teal_700"
+                        app:srcCompat="@drawable/list_emotions" />
 
                     <ImageButton
                         android:id="@+id/buttonGraphic"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
+                        android:background="@color/teal_700"
                         app:srcCompat="@drawable/graphic" />
+
 
                     <ImageButton
                         android:id="@+id/buttonResources"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
+                        android:background="@color/teal_700"
                         app:srcCompat="@drawable/resources" />
                 </LinearLayout>
 
-            </LinearLayout>
 
+            </LinearLayout>
 
         </LinearLayout>
 
-
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addEmotion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        android:icon="@drawable/addemotion"
-        />
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -10,6 +10,7 @@ public class Emotion {
     private String emotion_reason;
     private Date emotion_date;
 
+
     public Emotion(Integer id_emocion, Integer id_usuario, String emotion_type, String emotion_reason, Date emotion_date) {
         this.id_emocion = id_emocion;
         this.id_usuario = id_usuario;

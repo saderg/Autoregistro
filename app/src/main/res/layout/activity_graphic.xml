@@ -10,77 +10,69 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spin_emocion"
-                android:layout_width="148dp"
-                android:layout_height="match_parent" />
-
-            <CheckBox
-                android:id="@+id/boxDia"
+            <EditText
+                android:id="@+id/editDateGraphic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="DIA" />
+                android:ems="10"
+                android:hint="Ej: 2020-02-20"
+                android:inputType="textPersonName"
+                android:textStyle="italic" />
 
-            <CheckBox
-                android:id="@+id/boxMes"
+            <ImageButton
+                android:id="@+id/buttonMostrarGraphic"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="MES" />
+                android:background="@drawable/radio_azul"
+                app:srcCompat="@drawable/search" />
 
-            <CheckBox
-                android:id="@+id/boxAnio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="AÑO" />
         </LinearLayout>
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
             android:layout_width="match_parent"
-            android:layout_height="620dp" />
+            android:layout_height="605dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="50dp">
 
-            <ImageButton
-                android:id="@+id/buttonDia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/sun" />
 
             <ImageButton
                 android:id="@+id/buttonEmotions"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/calendar" />
+                android:background="@color/teal_700"
+                app:srcCompat="@drawable/list_emotions" />
 
             <ImageButton
                 android:id="@+id/buttonGraphic"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
+                android:background="@color/teal_700"
                 app:srcCompat="@drawable/graphic" />
 
             <ImageButton
                 android:id="@+id/buttonResources"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
+                android:background="@color/teal_700"
                 app:srcCompat="@drawable/resources" />
-
         </LinearLayout>
 
     </LinearLayout>

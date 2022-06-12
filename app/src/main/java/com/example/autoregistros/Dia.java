@@ -33,7 +33,9 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 
 import org.json.JSONException;
@@ -45,13 +47,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Dia extends AppCompatActivity {
-
-    public TextView userNavMenu, emailNavMenu, dayTxt, dateTxt;
+    public TextView dayTxt, dateTxt;
     public EditText reasonEditText, graphicEditText;
     public Spinner spinnerEmotions;
-    public ImageButton graphicButton;
-
+    public ImageButton graphicButton, dayButton, listButton, resourcesButton;
     public FloatingActionButton addEmotion;
+    public Toolbar toolbar;
 
     int id_user, day, month, year;
     String user_name, password, email_address, date_of_birth;
@@ -65,6 +66,7 @@ public class Dia extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dia);
 
         //Recuperar datos del usuario del Main
         getIntent();
@@ -74,18 +76,72 @@ public class Dia extends AppCompatActivity {
         email_address = getIntent().getStringExtra("email_address");
         date_of_birth = getIntent().getStringExtra("date_of_birth");
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar!=null) actionBar.setDisplayHomeAsUpEnabled(true);
+
         User loginUser = new User(id_user, user_name, password, email_address, date_of_birth);
         Log.i("LOGIN USER EN PPAL.A", loginUser.toString());
 
-        //init components fragment_day
         spinnerEmotions = findViewById(R.id.spinnerDayF);
         dayTxt = findViewById(R.id.dayText);
         dateTxt = findViewById(R.id.dateText);
         reasonEditText = findViewById(R.id.reasonEditText);
+
         addEmotion = findViewById(R.id.addEmotion);
 
-        //FRAGMENT DAY
+        graphicButton = findViewById(R.id.buttonGraphic);
+        resourcesButton = findViewById(R.id.buttonResources);
+        listButton = findViewById(R.id.buttonEmotions);
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //MENU BOTONES
+        graphicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dia.this, Graphic.class);
+                intent.putExtra("id_user", id_user);
+                intent.putExtra("user_name" , user_name);
+                intent.putExtra("password", password);
+                intent.putExtra("email_address" , email_address);
+                intent.putExtra("date_of_birth" , date_of_birth);
+                startActivity(intent);
+
+            }
+        });
+
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dia.this, ListEmotions.class);
+                intent.putExtra("id_user", id_user);
+                intent.putExtra("user_name" , user_name);
+                intent.putExtra("password", password);
+                intent.putExtra("email_address" , email_address);
+                intent.putExtra("date_of_birth" , date_of_birth);
+                startActivity(intent);
+            }
+        });
+
+        resourcesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dia.this, Resources.class);
+                intent.putExtra("id_user", id_user);
+                intent.putExtra("user_name" , user_name);
+                intent.putExtra("password", password);
+                intent.putExtra("email_address" , email_address);
+                intent.putExtra("date_of_birth" , date_of_birth);
+                startActivity(intent);
+            }
+        });
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, emotion_types);
+        spinnerEmotions.setAdapter(spinnerAdapter);
 
         Calendar calendario = Calendar.getInstance();
         day = calendario.get(Calendar.DAY_OF_MONTH);
@@ -120,21 +176,20 @@ public class Dia extends AppCompatActivity {
     }
 
 
-   /* @Override
+   @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-    }*/
+    }
 
 
-
-    /* @Override
+    @Override
      public boolean onOptionsItemSelected(MenuItem item) {
 
          int id = item.getItemId();
          if(id == R.id.perfilAjuste){
-             Intent intent = new Intent(Principal.this, Update.class);
+             Intent intent = new Intent(Dia.this, Update.class);
              intent.putExtra("id_user" , id_user);
              intent.putExtra("user_name", user_name);
              intent.putExtra("password", password);
@@ -148,7 +203,6 @@ public class Dia extends AppCompatActivity {
          return super.onOptionsItemSelected(item);
 
      }
- */
     public void aviso(){
         new AlertDialog.Builder(this)
                 .setTitle("Cerrar sesión")
@@ -156,7 +210,7 @@ public class Dia extends AppCompatActivity {
                 .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Dia.this, Dia.class);
+                        Intent intent = new Intent(Dia.this, MainActivity.class);
                         startActivity(intent);
                     }
                 })
